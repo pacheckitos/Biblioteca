@@ -3,34 +3,27 @@
 ## Classes
 
 - Biblioteca
-    - emprestar (Livro, Leitor)
-    - calcular_data_devolucao()
-    - Livros
-    - Usuários
+    - livros
+    - leitores
 
 - Livro
-    - codigo
-    - Título
-    - Autor
+    - cod
+    - título
+    - autor
 
-
-- Usuário
-    - Nome
-    - CPF
+- Leitor
+    - cpf
+    - nome
     - emprestimos
 
 - Emprestimo
-    - Emprestimo()
-    - set_leitor(leitor)
-    - set_livro(livro)
-    - set_data_devolucao(data)
-    - Livro
-    - Leitor
+    - livro
+    - leitor
     - data_de_devolucao
-
 
 ## Operações
 - CRUD
+- Emprestimo/Retirada de livro
 
-- Devolução
-    - Cobrança de multa
+- Devolução de livro
+    - cobrança de multa
