@@ -123,3 +123,7 @@ class Emprestimo:
         self.livro = livro
         self.leitor = leitor
         self.data_devolucao = data_devolucao
+
+# Inicializar biblioteca / conectar à model da biblioteca
+
+biblioteca = Biblioteca

@@ -59,7 +59,7 @@ Aqui também foi'''
 
 # Excluir livro
 # pré-condições:
-# exite uma bilioteca
+# exite uma biblioteca
 
 '''if biblioteca.excluir_leitor("03232584098"):
     print(f"{um_leitor.nome} excluído")
