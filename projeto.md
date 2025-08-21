@@ -5,6 +5,7 @@
 - Biblioteca
     - livros
     - leitores
+    - empréstimo
 
 - Livro
     - cod
@@ -14,7 +15,6 @@
 - Leitor
     - cpf
     - nome
-    - emprestimos
 
 - Emprestimo
     - livro

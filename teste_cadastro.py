@@ -1,18 +1,42 @@
 from model import (Biblioteca, Livro)
 
 #
-# Cadastrar livro
+# Cadastrar empréstimo
 #
 # pré-condições: 
-# - exite uma Biblioteca
+# - existe uma Biblioteca
+# - existe um livro
+# - existe um leitor 
 
 biblioteca = Biblioteca()
+'''Aqui bombou'''
 
 # Início do cadastro
 
-biblioteca.cadastrar_livro("a01", "Volta ao mundo em 80 dias")
-biblioteca.cadastrar_livro("a02", "Viagem ao Centro da Terra")
-biblioteca.cadastrar_livro("a03", "Vinte Mil Léguas Submarinas")
+biblioteca.cadastrar_livro("a01", "Viagem ao centro da terra")
+'''aqui foi também'''
+
+biblioteca.cadastrar_leitor("03232584098", "Matheus Pacheco Nunes")
+
+# - Existe um novo_livro : Livro
+# - Existe um novo_leitor : Leitor
+
+novo_livro = biblioteca.consultar_livro("a01")
+novo_leitor = biblioteca.consultar_leitor("03232584098")
+
+print(f"{novo_livro.titulo}")
+print(f"{novo_leitor.nome}")
+
+# - Cria o cadastro com o leitor e o livro
+
+biblioteca.emprestar(novo_livro, novo_leitor)
+
+um_emprestimo = biblioteca.consultar_emprestimo("a01")
+
+print(um_emprestimo.livro.titulo)
+
+if biblioteca.devolver(um_emprestimo):
+    print(f"Livro {um_emprestimo.livro.titulo} devolvido com sucesso!")
 
 
 # pós-condições
@@ -29,23 +53,25 @@ biblioteca.cadastrar_livro("a03", "Vinte Mil Léguas Submarinas")
 # pós-condições
 # nenhuma em especial
 
-um_livro = biblioteca.consultar_livro("a03")
-print(um_livro.titulo)
-
+'''um_leitor = biblioteca.consultar_leitor("03232584098")
+print(um_leitor.nome)
+Aqui também foi'''
 
 # Excluir livro
 # pré-condições:
 # exite uma bilioteca
 
-if biblioteca.excluir_livro("a02"):
-    print("Livro excluído")
+'''if biblioteca.excluir_leitor("03232584098"):
+    print(f"{um_leitor.nome} excluído")
+pegou'''
+
 
 # pós-condições:
 # biblioteca.livros não contém o livro excluído
 
-if livro := biblioteca.consultar_livro("a01"):
+'''if livro := biblioteca.consultar_livro("a01"):
     print(livro.titulo)
-
+'''
 #
 # Alteração do cadastro de um livro
 #
@@ -53,7 +79,9 @@ if livro := biblioteca.consultar_livro("a01"):
 # existe uma biblioteca
 # existe o livro que vai ser alterado
 
-biblioteca.atualizar_livro(cod, titulo)
+'''biblioteca.atualizar_leitor("03232584098", "Matheus Canez Pacheco")
+print(biblioteca.consultar_leitor("03232584098").nome)
+Aqui foi também'''
 
 # pós-condições
 # o livro está em Biblioteca.livros com os dados alterados

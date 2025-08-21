@@ -3,12 +3,14 @@ class Biblioteca:
     def __init__(self):
         self.livros = dict()
         self.leitores = dict()
+        self.emprestimos = []
+
+### CRUD REFERENTE AOS LIVROS ###
 
     def cadastrar_livro(self, cod, titulo):
         livro = Livro()
         livro.set_cod(cod)
         livro.set_titulo(titulo)
-
         self.livros[livro.cod] = livro
 
     def consultar_livro(self, cod):
@@ -29,14 +31,52 @@ class Biblioteca:
         self.excluir_livro(cod)
         self.cadastrar_livro(cod, titulo)
 
+### CRUD REFERENTE AOS LEITORES ###
 
-    def cadastrar_leitor(self, leitor):
+    def cadastrar_leitor(self, cpf, nome):
+        leitor = Leitor()
+        leitor.set_cpf(cpf)
+        leitor.set_nome(nome)
         self.leitores[leitor.cpf] = leitor
+
+    def consultar_leitor(self, cpf):
+        try:
+            return self.leitores[cpf]
+        except KeyError:
+            False
+
+    def excluir_leitor(self, cpf):
+        try:
+            del self.leitores[cpf]
+            return True
+        except KeyError:
+            return False
+
+    def atualizar_leitor(self, cpf, nome):
+        self.excluir_leitor(cpf)
+        self.cadastrar_leitor(cpf, nome)
+
+### CRUD REFERENTE AOS EMPRÉSTIMOS ###
 
     def emprestar(self, livro, leitor):
         data_de_devolucao = self.calcular_data_devolucao()
         livro.set_emprestado()
-        return Emprestimo(livro, leitor, data_de_devolucao)
+        novo_emprestimo = Emprestimo(livro, leitor, data_de_devolucao)
+        self.emprestimos.append(novo_emprestimo)
+        return novo_emprestimo
+
+    def consultar_emprestimo(self, cod):
+        for e in self.emprestimos:
+            if e.livro.cod == cod:
+                return e
+
+    def devolver(self, emprestimo):
+        try:
+            emprestimo.livro.set_devolvido()
+            self.emprestimos.remove(emprestimo)
+            return True
+        except KeyError:
+            return False
         
     def calcular_data_devolucao(self):
         import datetime
@@ -58,11 +98,21 @@ class Livro:
 
     def set_emprestado(self):
         self.emprestado = True
+
+    def set_devolvido(self):
+        self.emprestado = False
     
 
 class Leitor:
     def __init__(self):
         self.emprestimos = list()
+
+    def set_nome(self, nome):
+        self.nome = nome
+
+    def set_cpf(self, cpf):
+        cpf = str(cpf)
+        self.cpf = cpf
 
     def add_emprestimo(self, emprestimo):
         self.emprestimos.append(emprestimo)
