@@ -1,6 +1,6 @@
 from textual.app import App, SystemCommand
 from textual.binding import Binding
-from view import TelaInicial, TelaCadastrarLivros, TelaCadastrarLeitores
+from view import TelaInicial, TelaCadastrarLivros, TelaCadastrarLeitores, TelaMenuLeitores
 
 class AppBiblioteca(App):
 
@@ -13,16 +13,17 @@ class AppBiblioteca(App):
     SCREENS = {
         "inicial" : TelaInicial,
         "cadastrar_livros" : TelaCadastrarLivros,
+        "menu_leitores" : TelaMenuLeitores,
         "cadastrar_leitores" : TelaCadastrarLeitores
     }
 
-    def on_mount(self):        
-        self.push_screen("inicial")        
+    def on_mount(self):
+        self.push_screen("inicial")    
 
-    def action_cadastrar_livros(self):        
-        self.switch_screen("cadastrar_livros")       
+    def action_cadastrar_livros(self):
+        self.switch_screen("cadastrar_livros")
 
-    def action_ir_para_inicial(self):        
+    def action_ir_para_inicial(self):
         self.switch_screen("inicial")
 
     def action_cadastrar_leitores(self):
