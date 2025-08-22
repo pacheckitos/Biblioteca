@@ -1,4 +1,4 @@
-from textual.app import App
+from textual.app import App, SystemCommand
 from textual.binding import Binding
 from view import TelaInicial, TelaCadastrarLivros, TelaCadastrarLeitores
 
@@ -20,13 +20,17 @@ class AppBiblioteca(App):
         self.push_screen("inicial")        
 
     def action_cadastrar_livros(self):        
-        self.switch_screen("cadastrar_livros")        
+        self.switch_screen("cadastrar_livros")       
 
     def action_ir_para_inicial(self):        
         self.switch_screen("inicial")
 
     def action_cadastrar_leitores(self):
         self.switch_screen("cadastrar_leitores")
+
+    def get_system_commands(self, screen):
+        yield from super().get_system_commands(screen)
+        yield SystemCommand("Bell", "Ring the bell", self.action_cadastrar_livros)
 
 if __name__ == "__main__":
     AppBiblioteca().run()
