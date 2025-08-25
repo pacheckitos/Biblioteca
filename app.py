@@ -1,33 +1,37 @@
 from textual.app import App, SystemCommand
 from textual.binding import Binding
-from view import TelaInicial, TelaCadastrarLivros, TelaCadastrarLeitores, TelaMenuLeitores
+from view import TelaInicial, TelaMenuLivros, TelaMenuLeitores, TelaMenuEmprestimos
 
 class AppBiblioteca(App):
 
     BINDINGS = [
         Binding("escape", "ir_para_inicial", "Início"),
-        Binding("ctrl+n", "cadastrar_livros", "Cadastrar novo livro"),
-        Binding("ctrl+l", "cadastrar_leitores", "Cadastrar novo leitor"),
+        Binding("ctrl+n", "menu_livros", "Menu de livros"),
+        Binding("ctrl+l", "menu_leitores", "Menu de Leitores"),
+        Binding("ctrl+e", "menu_emprestimos", "Menu de empréstimos")
     ]
 
     SCREENS = {
         "inicial" : TelaInicial,
-        "cadastrar_livros" : TelaCadastrarLivros,
+        "menu_livros" : TelaMenuLivros,
         "menu_leitores" : TelaMenuLeitores,
-        "cadastrar_leitores" : TelaCadastrarLeitores
+        "menu_emprestimos" : TelaMenuEmprestimos
     }
 
     def on_mount(self):
         self.push_screen("inicial")    
 
-    def action_cadastrar_livros(self):
-        self.switch_screen("cadastrar_livros")
-
     def action_ir_para_inicial(self):
         self.switch_screen("inicial")
 
-    def action_cadastrar_leitores(self):
-        self.switch_screen("cadastrar_leitores")
+    def action_menu_livros(self):
+        self.switch_screen("menu_livros")
+
+    def action_menu_leitores(self):
+        self.switch_screen("menu_leitores")
+
+    def action_menu_emprestimos(self):
+        self.switch_screen("menu_emprestimos")
 
     def get_system_commands(self, screen):
         yield from super().get_system_commands(screen)
