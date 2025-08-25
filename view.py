@@ -20,8 +20,6 @@ class TelaInicial(Screen):
             case "button_menu_emprestimos":
                 self.app.switch_screen("menu_emprestimos")
 
-
-
 class TelaMenuLivros(Screen):
     def compose(self):
         yield Header(show_clock = True)
@@ -50,23 +48,61 @@ class TelaMenuLeitores(Screen):
         yield Header(show_clock = True)
         with TabbedContent():
 
-            with TabPane("Cadastrar leitor", id="tab_cadastrar_leitor"):
+            with TabPane("Cadastrar leitor", id = "tab_cadastrar_leitor"):
                 yield Static("Informe o nome do leitor:")
-                yield Input(placeholder = "Nome completo")
+                yield Input(placeholder = "Nome completo", id="cadastro_nome_leitor")
                 yield Static("Informe o CPF do leitor:")
-                yield Input(placeholder = "CPF")
+                yield Input(placeholder = "CPF", id = "cadastro_cpf_leitor")
                 yield Button("Cadastrar leitor", id = "button_cadastrar_leitor")
+
             
-            with TabPane("Excluir leitor", id="tab_excluir_leitor"):
+            with TabPane("Excluir leitor", id = "tab_excluir_leitor"):
                 yield Static("Informe o CPF do leitor:")
-                yield Input(placeholder = "CPF")
+                yield Input(placeholder = "CPF", id = "txt_excluir_leitor")
                 yield Button("Excluir leitor", id = "button_excluir_leitor")
             
-            with TabPane("Atualizar leitor", id="tab_atualizar_leitor"):
+            with TabPane("Atualizar leitor", id = "tab_atualizar_leitor"):
                 yield Static("Informe o CPF do leitor:")
-                yield Input(placeholder = "CPF")
-                yield Button("Buscar")             
+                yield Input(placeholder = "CPF", id = "txt_busca_leitor")
+                yield Button("Buscar", id = "button_busca_atualiza_leitor")             
         yield Footer()
+
+    def on_button_pressed(self, event: Button.Pressed):
+        match event.button.id:
+            case "button_cadastrar_leitor":
+                cpf = self.query_one("#cadastro_cpf_leitor").value
+                nome = self.query_one("#cadastro_nome_leitor").value
+                biblioteca.cadastrar_leitor(cpf, nome)
+                self.notify(f"Cadastro realizado! \nNome: {nome} \nCPF: {cpf}")
+        
+            case "button_excluir_leitor":
+                cpf = self.query_one("#txt_excluir_leitor").value
+                if biblioteca.excluir_leitor(cpf):
+                    self.notify(f"Cadastro excluído!\nCPF: {cpf}")
+
+            case "button_busca_atualiza_leitor":
+                cpf = self.query_one("#txt_busca_leitor").value
+                if biblioteca.consultar_leitor(cpf) == False:
+                    self.notify(f"Erro!\nLeitor não encontrado para o CPF {cpf}")
+                else:
+                    self.app.switch_screen("atualizacao_leitor")
+                    cpf = self.query_one("#atualizacao_cpf_leitor")
+                    nome = self.query_one("#atualizacao_nome_leitor")
+                    biblioteca.atualizar_leitor(nome, cpf)
+                    self.notify(f"Cadastro alterado! \nNome: {nome} \nCPF: {cpf}")
+
+class TelaAtualizaLeitor(Screen):
+    def compose(self):
+        yield Header(show_clock = True)
+        yield Static("Informe o novo nome do leitor:")
+        yield Input(placeholder = "Nome completo", id="atualizacao_nome_leitor")
+        yield Static("Informe o novo CPF do leitor:")
+        yield Input(placeholder = "CPF", id = "atualizacao_cpf_leitor")
+        yield Button("Atualizar leitor", id = "atualizacao_cadastrar_leitor")
+        yield Footer()
+
+    
+
 
 class TelaMenuEmprestimos(Screen):
     def compose(self):

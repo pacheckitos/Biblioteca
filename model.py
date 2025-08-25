@@ -43,7 +43,7 @@ class Biblioteca:
         try:
             return self.leitores[cpf]
         except KeyError:
-            False
+            return False
 
     def excluir_leitor(self, cpf):
         try:
@@ -126,4 +126,4 @@ class Emprestimo:
 
 # Inicializar biblioteca / conectar à model da biblioteca
 
-biblioteca = Biblioteca
+biblioteca = Biblioteca()
