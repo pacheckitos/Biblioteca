@@ -1,6 +1,6 @@
 from textual.app import App, SystemCommand
 from textual.binding import Binding
-from view import TelaInicial, TelaMenuLivros, TelaMenuLeitores, TelaMenuEmprestimos, TelaAtualizaLeitor
+from view import TelaInicial, TelaMenuLivros, TelaMenuLeitores, TelaMenuEmprestimos, TelaMenuLeitores, TelaAtualizaLeitor
 
 class AppBiblioteca(App):
 

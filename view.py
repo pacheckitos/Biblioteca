@@ -85,11 +85,9 @@ class TelaMenuLeitores(Screen):
                 if biblioteca.consultar_leitor(cpf) == False:
                     self.notify(f"Erro!\nLeitor não encontrado para o CPF {cpf}")
                 else:
+                    biblioteca.excluir_leitor(cpf) # não consegui usar o método de atualização, precisei excluir manualmetne
                     self.app.switch_screen("atualizacao_leitor")
-                    cpf = self.query_one("#atualizacao_cpf_leitor")
-                    nome = self.query_one("#atualizacao_nome_leitor")
-                    biblioteca.atualizar_leitor(nome, cpf)
-                    self.notify(f"Cadastro alterado! \nNome: {nome} \nCPF: {cpf}")
+                    # Chama outra tela para realizar a atualização
 
 class TelaAtualizaLeitor(Screen):
     def compose(self):
@@ -101,8 +99,17 @@ class TelaAtualizaLeitor(Screen):
         yield Button("Atualizar leitor", id = "atualizacao_cadastrar_leitor")
         yield Footer()
 
-    
-
+    def on_button_pressed(self, event: Button.Pressed):
+        match event.button.id:
+            case "atualizacao_cadastrar_leitor":
+                cpf = self.query_one("#atualizacao_cpf_leitor").value
+                novo_nome = self.query_one("#atualizacao_nome_leitor").value
+                biblioteca.cadastrar_leitor(cpf, novo_nome) # aqui o sistema cria um novo leitor do zero
+                # funciona, mas o objetivo é conservar o cpf inserido na busca da tela anterior e passar como
+                # parâmetro pro método de atualização
+                # também perguntar como zerar os placeholders dos inputs depois de apertar os botôes
+                self.notify(f"Cadastro alterado! \nNome: {novo_nome} \nCPF: {cpf}")
+                self.app.switch_screen("menu_leitores")
 
 class TelaMenuEmprestimos(Screen):
     def compose(self):
