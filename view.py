@@ -79,12 +79,15 @@ class TelaMenuLeitores(Screen):
                 cpf = self.query_one("#txt_excluir_leitor").value
                 if biblioteca.excluir_leitor(cpf):
                     self.notify(f"Cadastro excluído!\nCPF: {cpf}")
+                else:
+                    self.notify(f"Erro!\nLeitor não encontrado para o CPF {cpf}")
+
 
             case "button_busca_atualiza_leitor":
                 cpf = self.query_one("#txt_busca_leitor").value
                 if biblioteca.consultar_leitor(cpf) == False:
                     self.notify(f"Erro!\nLeitor não encontrado para o CPF {cpf}")
-                else:
+                else: 
                     biblioteca.excluir_leitor(cpf) # não consegui usar o método de atualização, precisei excluir manualmetne
                     self.app.switch_screen("atualizacao_leitor")
                     # Chama outra tela para realizar a atualização
