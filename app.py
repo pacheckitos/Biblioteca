@@ -1,6 +1,6 @@
 from textual.app import App, SystemCommand
 from textual.binding import Binding
-from view import TelaInicial, TelaMenuLivros, TelaMenuLeitores, TelaMenuEmprestimos, TelaMenuLeitores, TelaAtualizaLeitor
+from view import TelaInicial, TelaMenuLivros, TelaMenuLeitores, TelaMenuEmprestimos, TelaMenuLeitores, TelaAtualizaLeitor, TelaAtualizaLivro
 
 class AppBiblioteca(App):
 
@@ -16,7 +16,8 @@ class AppBiblioteca(App):
         "menu_livros" : TelaMenuLivros,
         "menu_leitores" : TelaMenuLeitores,
         "menu_emprestimos" : TelaMenuEmprestimos,
-        "atualizacao_leitor" : TelaAtualizaLeitor
+        "atualizacao_leitor" : TelaAtualizaLeitor,
+        "atualizacao_livro" : TelaAtualizaLivro
     }
 
     def on_mount(self):

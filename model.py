@@ -126,3 +126,7 @@ class Emprestimo:
 # Inicializar biblioteca / conectar à model da biblioteca
 
 biblioteca = Biblioteca()
+
+# "pacotes de dados usados em transações que envolvem várias telas (globais)"
+LIVRO = None
+LEITOR = None
